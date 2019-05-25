@@ -262,7 +262,8 @@ class settings(settingsMeta("settings", (object,), {})):  # type: ignore
         # This means @given has been applied, so we don't need to worry about
         # warning for @settings alone.
         has_given_applied = getattr(test, "is_hypothesis_test", False)
-        test_to_use = test if has_given_applied else new_test
+        was_invalid_test = getattr(test, "is_invalid_hypothesis_test", False)
+        test_to_use = test if has_given_applied or was_invalid_test else new_test
         test_to_use._hypothesis_internal_use_settings = self
         # Can't use _hypothesis_internal_use_settings as an indicator that
         # @settings was applied, because @given also assigns that attribute.

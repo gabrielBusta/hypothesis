@@ -229,7 +229,7 @@ def is_invalid_test(name, original_argspec, generator_arguments, generator_kwarg
     def invalid(message):
         def wrapped_test(*arguments, **kwargs):
             raise InvalidArgument(message)
-
+        wrapped_test.is_invalid_hypothesis_test = True
         return wrapped_test
 
     if not (generator_arguments or generator_kwargs):
